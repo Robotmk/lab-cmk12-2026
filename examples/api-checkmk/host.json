@@ -1,0 +1,10 @@
+{
+    "host_config": 
+    {
+        "host_name": "www.robotmk.org55",
+        "folder":"/",
+        "attributes": {
+            "ipaddress": "127.0.0.55"
+        }
+    }
+}

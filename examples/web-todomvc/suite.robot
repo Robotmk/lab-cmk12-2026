@@ -1,49 +1,82 @@
 *** Settings ***
-Documentation       A example of how to use the **CryptoLibrary** in a web test (**BrowserLibrary**).
+Documentation       A simple web test on the famous todoMVC web application, with a 
+...  special emphasis on the assertion after actions.
 
-Library     Browser
-...             enable_playwright_debug=disabled
-...             auto_delete_passed_tracing=True
-Library     CryptoLibrary
-...             key_path=${CURDIR}/keys
-...             password=%{RMKCRYPTPW=rmksecret}
-...             variable_decryption=True
+# Load common keywords from a shared file
+Resource  Resources/BrowserCommon.resource
 
-Suite Setup     Suite Initialization
+Suite Setup     BrowserCommon.Browser Init
 Test Setup      Test Initialization
 
 *** Variables ***
-${URL}              https://testpages.eviltester.com/apps/simulated-login/
-${USERNAME}         Admin
-# Never store clear-text passwords in production suites.
-# Use CryptoLibrary to encrypt secrets: https://github.com/Snooz82/robotframework-crypto
-${PASSWORD_CLEAR}   AdminPass
-# Encrypted with the private key in keys/private_key.json:
-${PASSWORD_CRYPT}   crypt:sGGn+pHfSLzVMnBqc4IIUgLk5+CqfSMj6MygfFqxdmmHxsOk/ntU+BYxmg5hyM7Zhy7rvNYOhfTE
+${URL}              https://todomvc.com/examples/vue/dist/
+${TODO}             Buy Butter
+@{TODOS}            Feed the dog
+...                 Change tires
+...                 Water the plants
+
 
 *** Test Cases ***
-Login With Clear Text Password
-    [Documentation]    Demonstrates a login using a clear-text password.
-    ...                This is intentionally shown as a negative example — never do this
-    ...                in production. Use CryptoLibrary (see next test case) instead.
-    Fill Text    id=username    ${USERNAME}
-    Fill Text    id=password    ${PASSWORD_CLEAR}
-    Click        id=login
-    Wait For Condition    Text    h2#adminh    ==    You are Admin
 
-Login With CryptoLibrary
-    [Documentation]    Demonstrates a login using a CryptoLibrary-encrypted password.
-    ...                The encrypted value is decrypted at runtime using the private key.
-    Fill Text    id=username    ${USERNAME}
-    Fill Text    id=password    ${PASSWORD_CRYPT}
-    Click        id=login
-    Wait For Condition    Text    h2#adminh    ==    You are Admin
+Todo Can Be Created
+    [Documentation]    Adds a new Todo to the list. 
+    Add Todo  ${TODO}
+
+Todo Can Be Deleted
+    [Documentation]    Adds and Deletes a todo from the list
+    Add Todo  ${TODO}
+    Delete Todo  ${TODO}
+
+Todo Can Be Checked Off
+    [Documentation]    Checks if a Todo can be checked off.
+    Add Todo  ${TODO}
+    Check Todo  ${TODO}
+
+Show Only Active Items
+    [Documentation]   Tests if the filter hides checked items.
+    Add Todos   ${TODOS}
+    Check Todo  ${TODOS}[1]
+    Set Filter  Active  notexpect=${TODOS}[1]
 
 *** Keywords ***
-Suite Initialization
-    # ROBOTMK_HEADLESS_HOST is set by Robotmk; default to false (show browser) locally.
-    New Browser    chromium    headless=%{ROBOTMK_HEADLESS_HOST=false}    slowMo=1s
 
 Test Initialization
     New Context
     New Page    url=${URL}
+
+Add Todo
+    [Arguments]  ${item}
+    Fill Text  input.new-todo  ${item}
+    Keyboard Key  press  Enter
+    Get Text  ul.todo-list  contains  ${item}  msg=Todo-list does not contain {expected}!
+
+Check Todo
+    [Arguments]  ${item}
+    Click   //label[text()='${item}']/preceding-sibling::input
+    Get Element States   //label[text()='${item}']/preceding-sibling::input  contains  checked
+
+Delete Todo
+    [Arguments]  ${item}
+    # The "X" button cannot be clicked directly, because it is hidden by default. 
+    # Solution: first hover over the item => make the X visible. 
+    Hover   //label[text()='${item}']
+    Click   //label[text()='${item}']/following-sibling::button
+    Get Text  ul.todo-list  not contains  ${item}  msg=Could not delete {expected} from the list!
+
+Add Todos
+    [Arguments]  ${items}
+    FOR  ${item}  IN  @{items}
+        Add Todo  ${item}
+    END
+    
+Set Filter
+    [Arguments]   ${type}    ${expect}=${EMPTY}    ${notexpect}=${EMPTY}
+    [Documentation]  Activates and verifies the filter
+    Click  text="${type}"
+    IF  "${expect}"
+        Get Text  ul.todo-list  contains  ${expect}  msg=Todo-list does NOT contain {expected}!
+    END
+    IF  "${notexpect}"
+        Get Text  ul.todo-list  not contains  ${notexpect}  msg=Todo-list DOES contain {expected}!
+    END
+
