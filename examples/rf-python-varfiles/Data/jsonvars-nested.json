@@ -1,0 +1,22 @@
+{
+    "cookbook": {
+        "pasta": {
+            "name": "Spaghetti Carbonara",
+            "servings": 2,
+            "time_minutes": 20,
+            "ingredients": ["spaghetti", "eggs", "pancetta", "pecorino", "black pepper"]
+        },
+        "soup": {
+            "name": "Tomato Basil Soup",
+            "servings": 4,
+            "time_minutes": 35,
+            "ingredients": ["tomatoes", "basil", "onion", "garlic", "cream"]
+        },
+        "dessert": {
+            "name": "Tiramisu",
+            "servings": 6,
+            "time_minutes": 30,
+            "ingredients": ["mascarpone", "espresso", "ladyfingers", "eggs", "cocoa"]
+        }
+    }
+}

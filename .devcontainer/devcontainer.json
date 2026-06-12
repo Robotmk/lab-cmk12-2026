@@ -1,0 +1,42 @@
+{
+  "name": "cmk12-2026",
+  "image": "checkmk/check-mk-pro:2.5.0-latest",
+  "overrideCommand": false,
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
+    }
+  },
+  "containerEnv": {
+    "CMK_PASSWORD": "cmk",
+    "CMK_SITE_ID": "cmk",
+    "RMKCRYPTPW": "rmksecret"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "d-biehl.robotcode"
+      ]
+    }
+  },
+  "runArgs": ["--shm-size=1g"],
+  "onCreateCommand": "bash .devcontainer/oncreate.sh",
+  "postCreateCommand": "bash .devcontainer/postcreate.sh",
+  "remoteEnv": {
+    "DISPLAY": ":1"
+  },
+  "forwardPorts": [6080, 5000],
+  "portsAttributes": {
+    "6080": {
+      "label": "noVNC Desktop",
+      "onAutoForward": "openBrowser"
+    },
+    "5000": {
+      "label": "CheckMK Web UI",
+      "onAutoForward": "notify"
+    }
+  }
+}

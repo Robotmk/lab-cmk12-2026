@@ -1,0 +1,16 @@
+cfg_yaml:
+  dev:
+    url: https://dev.example.com
+    ssl_verify: false
+    user: dev_user
+    password: dev_password
+  test:
+    url: https://test.example.com
+    ssl_verify: true
+    user: test_user
+    password: test_password
+  prod:
+    url: https://prod.example.com
+    ssl_verify: true
+    user: prod_user
+    password: prod_password

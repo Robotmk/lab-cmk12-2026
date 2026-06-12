@@ -1,0 +1,5 @@
+[env]
+# Password for the CryptoLibrary private key.
+# In Robotmk (Checkmk) this is configured in the robot rule under "Secret variables".
+# For local testing, change this to your actual key password.
+RMKCRYPTPW = "secret"

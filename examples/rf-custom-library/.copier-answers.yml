@@ -1,0 +1,7 @@
+# This file is managed by Copier.
+# Do NOT edit manually. To regenerate: run _dev/scripts/generate-all.sh
+_src_path: /Users/simon/Documents/01_Development/06_Minimalbeispiele/robotmk-starter/_dev/_examples/rf-custom-library
+_commit: none
+rf_version: 7.4
+python_version: 3.12
+pip_version: 23.2.1
