@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation   Automates a full car insurance quote workflow on the Tricentis sample application using robotframework-browser.
+...                 Covers the complete process from vehicle and insurant data entry through product configuration, price selection, and quote submission via email.
 # Load common keywords from a shared file
 Resource  Resources/BrowserCommon.resource 
 Library   DateTime

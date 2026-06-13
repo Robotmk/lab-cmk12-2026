@@ -1,0 +1,33 @@
+{
+  "name": "web-carinsurance",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "d-biehl.robotcode"
+      ]
+    }
+  },
+  "onCreateCommand": "bash .devcontainer/oncreate.sh",
+  "postCreateCommand": "bash .devcontainer/postcreate.sh",
+  "remoteEnv": {
+    "DISPLAY": ":1"
+  },
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "noVNC Desktop",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
