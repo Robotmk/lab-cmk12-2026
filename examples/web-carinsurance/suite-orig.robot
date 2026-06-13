@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation  This is the fixed test from https://docs.robotframework.org/docs/examples/insurance, without any other structural refinements. 
+Documentation   A car insurance quote workflow on a sample application using the Browser Library.
+...             Covers the complete process from vehicle and insurant data entry through product configuration, price selection, and quote submission via email.
+
 Library    Browser
 Library    DateTime
 
