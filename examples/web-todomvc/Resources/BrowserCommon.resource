@@ -1,15 +1,12 @@
 *** Settings ***
-Library     Browser
-...             enable_playwright_debug=disabled
-...             auto_delete_passed_tracing=True
-...             run_on_failure=Take A Screenshot
+Library     Browser  timeout=20s
 
 
 *** Keywords ***
 
 Browser Init
     # If there is no env var ROBOTMK_HEADLESS_HOST, always show the UI
-    New Browser  headless=%{ROBOTMK_HEADLESS_HOST=false}  slowMo=750ms
+    New Browser  headless=%{ROBOTMK_HEADLESS_HOST=false}  slowMo=1s
 
 Session Init
     [Arguments]  ${url}

@@ -6,10 +6,12 @@ Suite Setup   Suite Initialization
 
 # This library was auto-generated from the Checkmk API Swagger YAML with 
 # https://marketsquare.github.io/robotframework-openapitools/
-Library         CheckmkRESTAPI
-...                 source=${API_URL}/openapi-swagger-ui.yaml
-...                 origin=${API_URL}
-...                 base_path=${EMPTY}
+# Library         CheckmkRESTAPI
+# ...                 source=${API_URL}/openapi-swagger-ui.yaml
+# ...                 origin=${API_URL}
+# ...                 base_path=${EMPTY}
+# ...                 username=cmkadmin
+# ...                 password=cmk
 
 *** Variables ***
 
@@ -32,8 +34,20 @@ Create Host 2
     ...   Note that "host_config" is the high-level key in the JSON.
     POST On Session  cmk  /domain-types/host_config/collections/all  json=${host_config} 
 
-Create Host 3 With Lib
-    Create A Host Group  name=testgroup
+Check Cmkadmin User
+    [Documentation]  Verifies that cmk admin has "admin" role, is not disabled and receives all notifications
+    ${resp}=  GET On Session  cmk  /objects/user_config/cmkadmin
+    ${json}=    Set Variable    ${resp.json()}
+    Should Contain  ${json}[extensions][roles]  admin
+    Should Be Equal  ${json}[extensions][disable_login]  ${False}
+    Should Be Equal  ${json}[extensions][disable_login]  ${False}
+    Should Be Empty  ${json}[extensions][disable_notifications]
+
+
+#Create Host 3 With Lib
+#    Show All Agents
+#    #Create A Host Group  name=testgroup
+#    No Operation
 
 *** Keywords ***
 
@@ -42,6 +56,3 @@ Suite Initialization
     Create Session  cmk  url=${API_URL}  auth=${API_AUTH_USER}  headers=&{headers} 
     # Alternatively, connect with an automation user
     #Create Session  cmk  url=${API_URL}  auth=${API_AUTH_AUTOMATION}  headers=&{headers}
-    GET On Session    cmk    /domain-types/downtime/collections/all
-    &{attributes}=    Create Dictionary   ipaddress=127.0.0.33
-    &{payload}=    Create Dictionary    host_name=www.robotmk.org33  folder=/  attributes=&{attributes}
