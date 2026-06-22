@@ -28,8 +28,9 @@ if [ -d /opt/checkmk/agent/ ]; then
     bash "$SETUP" trigger
     if [[ -f /opt/checkmk/agent/default/package/config/robotmk.json ]]; then
       echo "▹ robotmk.json found — starting RobotMK scheduler in the background..."
+      pkill -f "robotmk_scheduler" 2>/dev/null && echo "  - killed existing robotmk_scheduler instance"
       /opt/checkmk/agent/default/package/robotmk/robotmk_scheduler /opt/checkmk/agent/default/package/config/robotmk.json &
-    fi    
+    fi
 else
     echo "ROOT-Agent detected: running "
     echo "  - /var/lib/cmk-agent/scripts/super-server/1_xinetd/setup deploy"
@@ -39,6 +40,7 @@ else
     bash "$SETUP" trigger
     if [[ -f /etc/check_mk/robotmk.json ]]; then
       echo "▹ robotmk.json found — starting RobotMK scheduler in the background..."
+      pkill -f "robotmk_scheduler" 2>/dev/null && echo "  - killed existing robotmk_scheduler instance"
       /usr/lib/check_mk_agent/robotmk/robotmk_scheduler /etc/check_mk/robotmk.json &
     fi
 fi

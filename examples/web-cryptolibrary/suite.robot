@@ -15,14 +15,15 @@ Test Setup      Test Initialization
 *** Variables ***
 ${URL}              https://testpages.eviltester.com/apps/simulated-login/
 ${USERNAME}         Admin
-# Never store clear-text passwords in production suites.
-# Use CryptoLibrary to encrypt secrets: https://github.com/Snooz82/robotframework-crypto
+# BAD: Never store clear-text passwords in production suites. Instead use CryptoLibrary to encrypt secrets: https://github.com/Snooz82/robotframework-crypto
 ${PASSWORD_CLEAR}   AdminPass
-# Encrypted with the private key in keys/private_key.json:
-${PASSWORD_CRYPT}   crypt:sGGn+pHfSLzVMnBqc4IIUgLk5+CqfSMj6MygfFqxdmmHxsOk/ntU+BYxmg5hyM7Zhy7rvNYOhfTE
+# GOOD: Encrypted with the private key in keys/private_key.json:
+${PASSWORD_CRYPT}   crypt:VEM3Q3ggAVXybUf5yoBHxO/7LhheyMBhOwoOUMWGb2qcV00spV/DgGQkvGAFW8pEgVt7lc5AZC9X
 
 *** Test Cases ***
+
 Login With Clear Text Password
+    # BAD example!
     [Documentation]    Demonstrates a login using a clear-text password.
     ...                This is intentionally shown as a negative example — never do this
     ...                in production. Use CryptoLibrary (see next test case) instead.
@@ -32,10 +33,14 @@ Login With Clear Text Password
     Wait For Condition    Text    h2#adminh    ==    You are Admin
 
 Login With CryptoLibrary
+    # GOOD example!
     [Documentation]    Demonstrates a login using a CryptoLibrary-encrypted password.
     ...                The encrypted value is decrypted at runtime using the private key.
     Fill Text    id=username    ${USERNAME}
-    Fill Text    id=password    ${PASSWORD_CRYPT}
+    # Fill the cryptographic cipher text (encrypted by the CryptoLibrary)
+    # It is NOT allowed to pass a regular RF variable to "Fill Secret". 
+    # Instead, we omit the curly brackets: the keyword resolves the variable then internally to avoid the secret being leaked into the logs. 
+    Fill Secret    id=password    $PASSWORD_CRYPT
     Click        id=login
     Wait For Condition    Text    h2#adminh    ==    You are Admin
 

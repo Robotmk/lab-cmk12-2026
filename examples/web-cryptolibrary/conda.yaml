@@ -11,4 +11,4 @@ dependencies:
 
 # Install Browser Library binaries after environment creation.
 rccPostInstall:
-  - rfbrowser init
+  - rfbrowser init chromium

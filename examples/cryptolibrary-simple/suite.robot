@@ -3,12 +3,12 @@ Documentation       A minimalistic example of how to use the **CryptoLibrary**, 
 
 Library     CryptoLibrary
 ...             key_path=${CURDIR}/keys
-...             password=%{RMKCRYPTPW=secret}
+...             password=%{RMKCRYPTPW=rmksecret}
 
 
 *** Variables ***
 
-${PASSWORD_CRYPT}   crypt:CorBEZOtizedq5WviZc7nTGiIPle6Bwd5r222Er0sUIS/7jTrkTkxmkiSwBplRa/w7wVi57itfjoPcWJZqc=
+${PASSWORD_CRYPT}   crypt:+88hq/fgSuQZPUEj/qOwjGdpp+JRHKvJ5xpIXo1HYXM0JepeaZJrPwbw6m6Ndcn2vo+iv3aYeMDiXo8h2zc=
 
 *** Test Cases ***
 Test Password Equality
