@@ -60,5 +60,8 @@ apt-get update -qq
 apt-get install -y --no-install-recommends firefox-esr
 ok "Firefox installed."
 
+# install additional tools
+apt-get install -y --no-install-recommends jq curl wget vim htop sudo python3-pip
+
 echo ""
 echo -e "${GREEN}${BOLD}Container creation complete.${RESET}"

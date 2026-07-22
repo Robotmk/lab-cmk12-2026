@@ -73,3 +73,5 @@ disown
 
 echo ""
 echo -e "${GREEN}${BOLD}Setup complete.${RESET} Open a new terminal to activate the PATH."
+
+useradd cmk-agent -m -s /bin/bash
