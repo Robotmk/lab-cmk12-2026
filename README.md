@@ -59,6 +59,6 @@ Also try the other [RF example suites](https://github.com/elabit/robotmk-starter
 >
 > **This repository is automatically synced from [elabit/robotmk-starter](https://github.com/elabit/robotmk-starter/tree/main/labs/cmk12-2026).**
 > Do not edit files here directly — changes will be overwritten on the next sync.
-> Last sync: [`242e2a8`](https://github.com/elabit/robotmk-starter/commit/242e2a8036e7bddb51723744959697ee2ea14d9a)
+> Last sync: [`efe8832`](https://github.com/elabit/robotmk-starter/commit/efe88324e99143d6a57c6554023357a8763b1cb0)
 
 ---
