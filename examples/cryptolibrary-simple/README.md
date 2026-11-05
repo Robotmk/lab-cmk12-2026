@@ -64,7 +64,7 @@ Demonstrates how to store an encrypted secret in a Robot Framework suite and dec
 | Library | Version |
 |---|---|
 | Python | `3.12` |
-| Robot Framework | `7.4` |
+| Robot Framework | `7.5.1` |
 | robotframework-crypto | `0.3` |
 
 

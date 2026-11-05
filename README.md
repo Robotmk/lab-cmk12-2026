@@ -41,7 +41,7 @@ TBD
 | Library | Version |
 |---|---|
 | Python | `3.12` |
-| Robot Framework | `7.4` |
+| Robot Framework | `7.5.1` |
 
 
 ## About
@@ -59,6 +59,6 @@ Also try the other [RF example suites](https://github.com/elabit/robotmk-starter
 >
 > **This repository is automatically synced from [elabit/robotmk-starter](https://github.com/elabit/robotmk-starter/tree/main/labs/cmk12-2026).**
 > Do not edit files here directly — changes will be overwritten on the next sync.
-> Last sync: [`e6e1994`](https://github.com/elabit/robotmk-starter/commit/e6e1994648696a30516b0b388917af712ea9f130)
+> Last sync: [`1409e78`](https://github.com/elabit/robotmk-starter/commit/1409e7803bd4142ee2bbdd74cc4636503c680f89)
 
 ---
