@@ -3,10 +3,9 @@ channels:
 dependencies:
   - python=3.12
   - pip=23.2.1
-  - nodejs=22.11.0
   - pip:
-      - robotframework==7.5.1
-      - robotframework-browser==21.0.0
+      - robotframework>=7.5
+      - robotframework-browser[bb]>=21.0
       - robotframework-crypto==0.3
 
 # Install Browser Library binaries after environment creation.

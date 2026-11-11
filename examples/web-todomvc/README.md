@@ -67,9 +67,8 @@ and resilient to minor markup changes.
 | Library | Version |
 |---|---|
 | Python | `3.12` |
-| Node.js | `22.11.0` |
-| Robot Framework | `7.5.1` |
-| robotframework-browser | `21.0.0` |
+| Robot Framework | `7.5` |
+| robotframework-browser-batteries | `21.0` |
 
 
 ## About

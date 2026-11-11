@@ -67,7 +67,7 @@ Demonstrates the three variable file patterns supported by RF: plain scalars, ne
 | Library | Version |
 |---|---|
 | Python | `3.12` |
-| Robot Framework | `7.5.1` |
+| Robot Framework | `7.5` |
 
 
 ## About
